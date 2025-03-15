@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horarios de Colectivos - Santiago del Estero</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        .linea {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .linea h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .recorrido {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .recorrido div {
+            flex: 1;
+        }
+        .recorrido h3 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #555;
+        }
+        .recorrido ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .recorrido li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 3px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Horarios de Colectivos - Santiago del Estero</h1>
+    </header>
+    <main>
+        <div class="linea">
+            <h2>Línea SUMAJ VIAJES: Santiago del Estero - Sumampa</h2>
+            <div class="recorrido">
+                <div>
+                    <h3>Recorrido de Ida</h3>
+                    <ul>
+                        <li>Santiago del Estero (Terminal)</li>
+                        <li>La Banda</li>
+                        <li>Sumampa</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Recorrido de Vuelta</h3>
+                    <ul>
+                        <li>Sumampa</li>
+                        <li>La Banda</li>
+                        <li>Santiago del Estero (Terminal)</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>Horarios</h3>
+            <p><strong>Salida de Santiago:</strong> 13:30, 19:30</p>
+            <p><strong>Salida de Sumampa:</strong> 04:30</p>
+        </div>
+    </main>
+    <footer>
+        <p>© 2023 Horarios de Colectivos</p>
+    </footer>
+</body>
+</html>
