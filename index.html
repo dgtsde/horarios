@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horarios de Colectivos - Santiago del Estero</title>
     <style>
+        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -12,49 +13,72 @@
             background-color: #f4f4f4;
             color: #333;
         }
+
         header {
             background-color: #333;
             color: #fff;
             padding: 20px;
             text-align: center;
         }
+
         main {
             padding: 20px;
         }
-        .linea {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 20px;
+
+        /* Buscador */
+        #search {
             margin-bottom: 20px;
         }
-        .linea h2 {
-            margin-top: 0;
-            color: #333;
+
+        #searchInput {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        .recorrido {
+
+        /* Lista de líneas */
+        #linesList {
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .line {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .line:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Horarios */
+        #scheduleList {
             margin-top: 10px;
         }
-        .recorrido div {
-            flex: 1;
-        }
-        .recorrido h3 {
-            margin-top: 0;
-            font-size: 18px;
-            color: #555;
-        }
-        .recorrido ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .recorrido li {
-            background-color: #f9f9f9;
+
+        .time {
+            background-color: #fff;
             padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             margin-bottom: 5px;
-            border-radius: 3px;
         }
+
+        /* Mapa */
+        #map {
+            height: 300px;
+            width: 100%;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
         footer {
             background-color: #333;
             color: #fff;
@@ -68,36 +92,113 @@
 </head>
 <body>
     <header>
-        <h1>Horarios de Colectivos - Santiago del Estero</h1>
+        <h1>Horarios de Colectivos en Santiago del Estero</h1>
     </header>
     <main>
-        <div class="linea">
-            <h2>Línea SUMAJ VIAJES: Santiago del Estero - Sumampa</h2>
-            <div class="recorrido">
-                <div>
-                    <h3>Recorrido de Ida</h3>
-                    <ul>
-                        <li>Santiago del Estero (Terminal)</li>
-                        <li>La Banda</li>
-                        <li>Sumampa</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Recorrido de Vuelta</h3>
-                    <ul>
-                        <li>Sumampa</li>
-                        <li>La Banda</li>
-                        <li>Santiago del Estero (Terminal)</li>
-                    </ul>
-                </div>
-            </div>
-            <h3>Horarios</h3>
-            <p><strong>Salida de Santiago:</strong> 13:30, 19:30</p>
-            <p><strong>Salida de Sumampa:</strong> 04:30</p>
-        </div>
+        <!-- Buscador -->
+        <section id="search">
+            <input type="text" id="searchInput" placeholder="Buscar línea o destino...">
+        </section>
+
+        <!-- Lista de líneas -->
+        <section id="lines">
+            <h2>Líneas de Colectivos</h2>
+            <div id="linesList"></div>
+        </section>
+
+        <!-- Horarios -->
+        <section id="schedule">
+            <h2>Horarios</h2>
+            <div id="scheduleList"></div>
+        </section>
+
+        <!-- Mapa -->
+        <section id="mapSection">
+            <h2>Mapa de Santiago del Estero</h2>
+            <div id="map"></div>
+        </section>
     </main>
     <footer>
         <p>© 2023 Horarios de Colectivos</p>
     </footer>
+
+    <!-- Script para el mapa -->
+    <script>
+        // Datos de ejemplo con rutas desde Santiago del Estero
+        const linesData = [
+            { name: "Línea 1: Santiago del Estero - La Banda", schedule: ["08:00", "10:00", "12:00", "14:00"] },
+            { name: "Línea 2: Santiago del Estero - Frías", schedule: ["09:00", "11:00", "13:00", "15:00"] },
+            { name: "Línea 3: Santiago del Estero - Termas de Río Hondo", schedule: ["07:00", "09:30", "12:30", "16:00"] },
+            { name: "Línea 4: Santiago del Estero - Añatuya", schedule: ["06:00", "08:30", "11:00", "14:30"] },
+            { name: "Línea 5: Santiago del Estero - Quimilí", schedule: ["07:30", "10:00", "13:00", "16:30"] },
+        ];
+
+        // Cargar las líneas de colectivos
+        const linesList = document.getElementById('linesList');
+        const scheduleList = document.getElementById('scheduleList');
+
+        function loadLines() {
+            linesList.innerHTML = ''; // Limpiar lista
+            linesData.forEach(line => {
+                const lineElement = document.createElement('div');
+                lineElement.className = 'line';
+                lineElement.textContent = line.name;
+                lineElement.addEventListener('click', () => showSchedule(line.schedule));
+                linesList.appendChild(lineElement);
+            });
+        }
+
+        // Mostrar horarios
+        function showSchedule(schedule) {
+            scheduleList.innerHTML = ''; // Limpiar horarios
+            schedule.forEach(time => {
+                const timeElement = document.createElement('div');
+                timeElement.className = 'time';
+                timeElement.textContent = time;
+                scheduleList.appendChild(timeElement);
+            });
+        }
+
+        // Buscador
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+            const lines = document.querySelectorAll('#linesList .line');
+            lines.forEach(line => {
+                const lineName = line.textContent.toLowerCase();
+                if (lineName.includes(searchTerm)) {
+                    line.style.display = 'block';
+                } else {
+                    line.style.display = 'none';
+                }
+            });
+        });
+
+        // Cargar las líneas al iniciar
+        loadLines();
+
+        // Inicializar el mapa
+        function initMap() {
+            // Coordenadas de Santiago del Estero
+            const santiagoDelEstero = { lat: -27.7951, lng: -64.2615 };
+
+            // Crear el mapa
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: santiagoDelEstero,
+            });
+
+            // Marcador en Santiago del Estero
+            new google.maps.Marker({
+                position: santiagoDelEstero,
+                map: map,
+                title: "Santiago del Estero",
+            });
+        }
+    </script>
+
+    <!-- Cargar la API de Google Maps -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap">
+    </script>
 </body>
 </html>
